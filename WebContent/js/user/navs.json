@@ -1,0 +1,56 @@
+{
+	"mainSystem": [
+		{
+			"title": "A",
+			"icon": "",
+			"href": "user/front/user",
+			"spread": false
+		},
+		{
+			"title": "B",
+			"icon": "",
+			"href": "user/mr",
+			"spread": false
+		},
+		{
+			"title": "C",
+			"icon": "",
+			"href": "",
+			"spread": false,
+			"children": [
+				{
+					"title": "C_1",
+					"icon": "",
+					"href": "user/userCertification",
+					"spread": false,
+					"children": [
+						{
+							"title": "C_1_1",
+							"icon": "",
+							"href": "user/userCertification",
+							"spread": false
+						},
+						{
+							"title": "C_1_2",
+							"icon": "",
+							"href": "user/userCertification",
+							"spread": false
+						}
+					]
+				},
+				{
+					"title": "C_72",
+					"icon": "",
+					"href": "user/mrCertification",
+					"spread": false
+				}
+			]
+		},
+		{
+			"title": "D",
+			"icon": "",
+			"href": "user/bg/user",
+			"spread": false
+		}
+	]
+}

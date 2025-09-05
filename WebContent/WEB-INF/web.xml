@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ 				 xmlns="http://java.sun.com/xml/ns/javaee" 
+				 xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" 
+				 version="3.0" metadata-complete="false">
+
+	<welcome-file-list>
+  		<welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+  	<error-page>
+		<error-code>404</error-code>
+		<location>/view/global/404.jsp</location>
+	</error-page>
+	<error-page>
+    	<error-code>500</error-code>
+    	<location>/view/global/500.jsp</location>
+ 	</error-page>
+ 	
+ 	<!-- 静态资源访问 -->
+	<servlet-mapping>    
+	    <servlet-name>default</servlet-name>
+	    <url-pattern>*.html</url-pattern>
+	    <url-pattern>*.htm</url-pattern> 
+	    <url-pattern>/css/*</url-pattern>
+	    <url-pattern>/js/*</url-pattern>
+	    <url-pattern>/image/*</url-pattern>
+	</servlet-mapping>
+</web-app>

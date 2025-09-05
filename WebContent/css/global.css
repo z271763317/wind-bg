@@ -1,0 +1,49 @@
+body{margin:0px;padding:0px;}
+table{border:0;border-collapse:collapse;border-spacing:0;margin:0px;}
+.table td,.table th{padding:5px 0px 5px 0px;word-break:break-all;font-size:12px}
+.table_border th,.table_border td{border:1px #DEDEDE solid}
+/*省略（以.......号展示，width默认为200px;）*/
+.omit{white-space:nowrap; text-overflow:ellipsis; -o-text-overflow:ellipsis; overflow: hidden;}
+/*******************************链接*******************************/
+/*<a>链接：各种状态的样式*/
+.a:link {color:#2D374B;text-decoration:none;} 			/* 未访问的链接 */ 
+.a:visited {color:#2D374B;text-decoration:none;} 		/* 已访问的链接 */ 
+.a:hover {color:#0063C6;text-decoration:underline;}	/* 鼠标移动到链接上 */
+/*橙*/
+.a_orange:link {color:#EE7600;text-decoration:none;}
+.a_orange:visited {color:#EE7600;text-decoration:none;} 
+.a_orange:hover {color:#EEB422;text-decoration:underline;}
+/* 查询输入框 */
+.input{
+	padding:5px 7px;border-top: solid 1px #a7b5bc;border-left: solid 1px #a7b5bc;border-right: solid 1px #ced9df;border-bottom: solid 1px #ced9df;
+    background: url(../image/inputbg.gif) repeat-x;border-radius:5px;
+}
+/*下拉列表框 */
+.select{
+	padding:5px;border-top: solid 1px #a7b5bc;border-left: solid 1px #a7b5bc;border-right: solid 1px #ced9df;border-bottom: solid 1px #ced9df;
+    background: url(../image/inputbg.gif) repeat-x;border-radius:5px;
+}
+/*编辑页*/
+.edit{
+	padding:10px 70px;
+}
+/*编辑页_标题*/
+.edit_title{
+	padding:15px;font-size:26px;text-align:center;border-bottom:1px solid #E6E6E6;margin-bottom:10px;
+}
+/*弹出框_数据区*/
+.dialog_dataPanel{
+	border:1px solid #DEDEDE;border-radius:7px;padding:10px 5px;overflow: hidden;
+}
+*/*弹出框_数据区_单项*/
+.dialog_dataPanel_item{
+	float:left;width:150px;margin-left:10px;margin-bottom:10px;border:1px solid #DEDEDE;border-radius:5px;font-size:12px;overflow: hidden;
+}
+*/*弹出框_数据区_单项_单元格*/
+.dialog_dataPanel_item_td{
+	padding:7px;
+}
+/*弹出框_条件区_单项*/
+.dialog_tj_item{
+	display: inline-block;vertical-align: middle;margin-right:10px;
+}
