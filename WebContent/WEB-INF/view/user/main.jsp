@@ -167,7 +167,7 @@
 			<div class="navBar layui-side-scroll" id="navBar" >
 				<ul class="layui-nav layui-nav-tree">
 					<li class="layui-nav-item layui-this">
-						<a href="javascript:;" data-url="${systemIndexUrl}" id="menu_backIndex">
+						<a href="javascript:;" data-url="${systemIndexUrl!=null?systemIndexUrl:'user/index'}" id="menu_backIndex">
 							<cite>后台首页</cite>
 						</a>
 					</li>

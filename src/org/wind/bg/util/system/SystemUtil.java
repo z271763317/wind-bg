@@ -10,9 +10,11 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.wind.bg.config.SessionKey;
 import org.wind.bg.model.Config;
 import org.wind.bg.model.Resource;
 import org.wind.bg.model.RoleResource;
+import org.wind.bg.util.SysConstant;
 import org.wind.sso.client.util.SSOUtil;
 
 /**
@@ -124,23 +126,61 @@ public final class SystemUtil {
 	}
 	/**是否 : 已登录**/
 	public static boolean isLogin(HttpServletRequest request,HttpServletResponse response) {
-		try {
-			return SSOUtil.isLogin(request, response);
-		} catch (Exception e) {
-			e.printStackTrace();
+		int type=SysConstant.type;
+		switch(type) {
+			//单体
+			case 1:{
+				Object userId=request.getSession().getAttribute(SessionKey.userId);
+				return userId!=null;
+			}
+			//分布式
+			case 2:{ 
+				try {
+					return SSOUtil.isLogin(request, response);
+				}catch(Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+			default:{
+				throw new IllegalArgumentException("未知的系统类型");
+			}
 		}
-		return false;
 	}
-	/**跳转 : 登录界面（未登录则跳转）**/
+	/**跳转 : 登录界面（未登录则跳转，只给默认页使用）**/
 	public static void jumpLogin(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		boolean isLogin=SystemUtil.isLogin(request, response);
 		//已登录
 		if(isLogin){
 			response.sendRedirect("user");
 		}else{
-			String loginPageUrl=SSOUtil.getLoginPageUrlParam(request);
-			response.sendRedirect(loginPageUrl);
+			int type=SysConstant.type;
+			switch(type) {
+				//单体
+				case 1:{
+					/*传统登录URL*/
+//					String project=request.getContextPath();
+//					if(project==null || project.length()<=0) {
+//						project="/";
+//					}
+//					response.sendRedirect(project);
+					break;
+				}
+				//分布式
+				case 2:{ 
+					String loginPageUrl=SSOUtil.getLoginPageUrlParam(request);
+					response.sendRedirect(loginPageUrl);
+					break;
+				}
+				default:{
+					throw new IllegalArgumentException("未知的系统类型");
+				}
+			}
 		}
 	}
-	
+	/**获取 : 系统名称**/
+	public static String getSystemName() {
+		return Config.get(Config.systemName);
+	}
+	 
 }

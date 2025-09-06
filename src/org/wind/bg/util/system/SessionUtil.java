@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.wind.bg.config.SessionKey;
+import org.wind.bg.util.SysConstant;
 import org.wind.sso.client.util.SSOUtil;
 
 /**
@@ -26,7 +27,20 @@ public final class SessionUtil {
 	
 	/**用户ID**/
 	public static Long userId(HttpServletRequest request){
-		return Long.parseLong(getAttribute(request, SessionKey.userId).toString());
+		int type=SysConstant.type;
+		switch(type) {
+			//单体
+			case 1:{
+				return (Long) request.getSession().getAttribute(SessionKey.userId);
+			}
+			//分布式
+			case 2:{ 
+				return Long.parseLong(getAttribute(request, SessionKey.userId).toString());
+			}
+			default:{
+				throw new IllegalArgumentException("未知的系统类型");
+			}
+		}
 	}
 	
 }

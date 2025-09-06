@@ -12,7 +12,11 @@ import java.util.Properties;
 public final class SysConstant{
 	
     public static final String SYS_PROPERTIES = "application.properties";		//文件路径（默认工程根目录下）
+   
     /*配置*/
+    public static final int type=Integer.valueOf(getProperty("type","1"));			//系统类型（1=单体【默认】；2=分布式【需接入wind-sso单点中心】）
+    public static final String name=getProperty("name","后台管理系统");			//系统名称（默认：后台管理系统）
+    public static final Boolean isCaptcha=Boolean.valueOf(getProperty("isCaptcha","false"));		//是否开启验证码（true=开启；false=不开启【默认】。若开启，则必须配置【redis】）
     public static final int conTimeout=Integer.valueOf(getProperty("conTimeout",(10*1000)+""));			//http连接超时
     public static final int readTimeout=Integer.valueOf(getProperty("readTimeout",(60*1000)+""));		//http读取超时
  

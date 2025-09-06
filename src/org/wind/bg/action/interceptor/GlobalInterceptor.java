@@ -1,5 +1,6 @@
 package org.wind.bg.action.interceptor;
 
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -18,7 +19,9 @@ import org.wind.bg.config.cache.Cache;
 import org.wind.bg.model.User;
 import org.wind.bg.util.FileOS;
 import org.wind.bg.util.JsonUtil;
+import org.wind.bg.util.SysConstant;
 import org.wind.bg.util.ToolUtil;
+import org.wind.bg.util.system.SystemUtil;
 import org.wind.mvc.annotation.controller.An_Controller;
 import org.wind.mvc.annotation.interceptor.An_Interceptor;
 import org.wind.mvc.bean.context.ActionContext;
@@ -50,7 +53,7 @@ public class GlobalInterceptor implements Interceptor{
 		//
 		boolean isNeedLogin=!(context.getMethod().isAnnotationPresent(An_NotLogin.class));		//是否 : 需要登录
 		//需要登录，且未登录
-		if(isNeedLogin && !isLogin(request,response)) {
+		if(isNeedLogin && !SystemUtil.isLogin(request,response)) {
 			clearSession(request, response);
 			return false;
 		}
@@ -180,20 +183,29 @@ public class GlobalInterceptor implements Interceptor{
 		An_Controller an_controller=controller.getClass().getAnnotation(An_Controller.class);
 		request.setAttribute("_moduleName", an_controller.name());	//模块名
 	}
-	//是否登录（同时获取并保存会话信息）
-	private static boolean isLogin(HttpServletRequest request,HttpServletResponse response) throws Exception{
-		return SSOUtil.isLogin(request, response);
-	}
 	//删除 : 会话所有信息，并跳转到登录页面、提示异常信息
-	private static void clearSession(HttpServletRequest request,HttpServletResponse response){
+	private static void clearSession(HttpServletRequest request,HttpServletResponse response) throws IOException{
 		String requestType = request.getHeader("X-Requested-With");		//请求类型（ajax还是普通）
-		/*传统登录URL*/
-//		String project=request.getContextPath();
-//		if(project==null || project.length()<=0) {
-//			project="/";
-//		}
-		/*SSO登录URL*/
-		String project=SSOUtil.getLoginPageUrlParam(request, null, null);
+		String project="";
+		int type=SysConstant.type;
+		switch(type) {
+			//单体（传统登录URL）
+			case 1:{
+				project=request.getContextPath();
+				if(project==null || project.length()<=0) {
+					project="/";
+				}
+				break;
+			}
+			//分布式
+			case 2:{ 
+				project=SSOUtil.getLoginPageUrlParam(request, null, null);
+				break;
+			}
+			default:{
+				throw new IllegalArgumentException("未知的系统类型");
+			}
+		}
 		//ajax请求
 		if((requestType!=null && requestType.equalsIgnoreCase("XMLHttpRequest"))){
 			Map<String,Object> resultMap=new HashMap<String, Object>();
@@ -205,7 +217,21 @@ public class GlobalInterceptor implements Interceptor{
 			FileOS.writer(request,response, JsonUtil.toJson(resultMap));
 		//普通请求（跳转登录页面）
 		}else{
-			SSOUtil.redirectLoginPage(request, response, null, null);
+			switch(type) {
+				//单体
+				case 1:{
+					response.sendRedirect(project);
+					break;
+				}
+				//分布式
+				case 2:{ 
+					SSOUtil.redirectLoginPage(request, response, null, null);
+					break;
+				}
+				default:{
+					throw new IllegalArgumentException("未知的系统类型");
+				}
+			}
 		}
 	}
 }

@@ -23,6 +23,7 @@ import org.wind.bg.util.EncryptUtil;
 import org.wind.bg.util.FileOS;
 import org.wind.bg.util.JsonUtil;
 import org.wind.bg.util.RegexUtil;
+import org.wind.bg.util.SysConstant;
 import org.wind.bg.util.ToolUtil;
 import org.wind.bg.util.ValidateUtil;
 import org.wind.bg.util.system.SessionUtil;
@@ -115,10 +116,31 @@ public class UserAction {
 	}
 	/**退出**/
 	@An_URL("/exit")
-	public Map<Object,Object> exit(HttpServletRequest request,HttpServletResponse response) {
-		SSOUtil.exit(request,response);
+	public Map<Object,Object> exit(HttpServletRequest request,HttpServletResponse response) {	
 		Map<Object,Object> resultMap=new HashMap<Object, Object>();
-		resultMap.put("href", SSOUtil.getLoginPageUrl()+"?referer="+ToolUtil.getRootURL(request));
+		String href="";
+		int type=SysConstant.type;
+		switch(type) {
+			//单体（传统登录URL）
+			case 1:{
+				request.getSession().invalidate();
+				href=request.getContextPath();
+				if(href==null || href.length()<=0) {
+					href="/";
+				}
+				break;
+			}
+			//分布式
+			case 2:{ 
+				SSOUtil.exit(request,response);
+				href=SSOUtil.getLoginPageUrl()+"?referer="+ToolUtil.getRootURL(request);
+				break;
+			}
+			default:{
+				throw new IllegalArgumentException("未知的系统类型");
+			}
+		}
+		resultMap.put("href", href);
 		return resultMap;
 	}
 	/**菜单列表**/

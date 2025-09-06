@@ -12,7 +12,7 @@
 		<!-- 视图（完整的视图路径会拼上前缀+后缀，如prefix为【/view】、suffix为【.html】，某控制器方法返回值为【user/index】，则完整路径为：/view/user/index.html） -->
 		<view>
 			<!-- 路径前缀 -->
-			<prefix>/view</prefix>
+			<prefix>/WEB-INF/view</prefix>
 			<!-- 路径后缀 -->
 			<suffix>.jsp</suffix>
 		</view>
