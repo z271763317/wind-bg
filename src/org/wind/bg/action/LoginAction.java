@@ -108,7 +108,7 @@ public class LoginAction{
 	}
 	
 	/**验证码**/
-	@An_URL("/captcha")
+	@An_URL("/captcha")@An_NotLogin
 	public void captcha(HttpServletResponse response,HttpSession session) throws Exception{
 		byte[] captcha = null;		//验证码图片数据
 		boolean isYzm=SysConstant.isCaptcha;

@@ -3,6 +3,7 @@
 <%
 	SystemUtil.jumpLogin(request, response);		//跳转 : 登录界面（未登录则跳转）
 	request.setAttribute("systemName", SystemUtil.getSystemName());
+	request.setAttribute("isCaptcha", SystemUtil.isCaptcha());
 %>
 <!DOCTYPE HTML>
 <html>
@@ -20,12 +21,17 @@
 		var cookie_loginUserName_name="_local_loginUserName";		//登录的用户名
 		var cookie_loginPwd_name="_local_loginPwd";		//登录的密码
 		var referer="user";		//默认跳转URL
+		var isCaptcha=${isCaptcha};		//是否开启验证码
 		$(document).ready(function() {
 			/**cookie——用户名**/
 			setCookieValueToInput(cookie_loginUserName_name,"userName");
 			var referer_new=decodeURIComponent(getUrlParam("refere"));
 			if(referer_new!=null && referer_new!="" && referer_new!="null"){
 				referer=referer_new;
+			}
+			if(isCaptcha){
+				$("#panel_yzm").show();
+				createCode();
 			}
 		});
 		$(document).keydown(function(event){ 
@@ -91,12 +97,9 @@
 		}
 		//生成验证码
 		function createCode(){
-			var userName=trim($("#userName").val());		//用户名
-			if(userName!=null && userName.length>0){
-			   	var t_jq=$("#myCanvas");
-			   	var t_src=t_jq.attr("temp_src");
-			   	t_jq.attr("src",t_src+"?"+Math.random()+"&userName="+userName);
-			}
+		   	var t_jq=$("#myCanvas");
+		   	var t_src=t_jq.attr("temp_src");
+		   	t_jq.attr("src",t_src+"?"+Math.random());
 		}
 	</script>
 </head>

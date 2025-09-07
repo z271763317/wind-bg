@@ -182,5 +182,9 @@ public final class SystemUtil {
 	public static String getSystemName() {
 		return Config.get(Config.systemName);
 	}
+	/**是否 : 开启验证码**/
+	public static boolean isCaptcha() {
+		return SysConstant.isCaptcha;
+	}
 	 
 }
