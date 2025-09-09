@@ -4,9 +4,10 @@
 
 在【src/application.properties】处，增加参数：
 
-type：系统类型（1=单体系统【默认】；2=分布式系统【需接入wind-sso单点中心】）
+  type：系统类型（1=单体系统【默认】；2=分布式系统【需接入wind-sso单点中心】）
 
-isCaptcha：是否开启验证码（只针对【type】为1时生效，true=开启；false=不开启【默认】）
+  isCaptcha：是否开启验证码（只针对【type】为1时生效，true=开启；false=不开启【默认】）
+  
 
 目前已有菜单模块：
 
