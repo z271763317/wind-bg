@@ -6,11 +6,11 @@
 
 -- 需要安装
 
-  	mysql：5.x以上版本（尽量使用最新版）
+    mysql：5.x以上版本（尽量使用最新版）
   	
   	jdk：8以上
   	
-  	tomcat：9.x（最高）
+    tomcat：9.x（最高）
 
 -- 配置文件（在【src/application.properties】）
 
