@@ -5,14 +5,13 @@
 		<!-- 数据库驱动字符串 -->
 		<driver>com.mysql.cj.jdbc.Driver</driver>
 		<!-- 数据库连接字符串 -->
-		<!-- <url>jdbc:mysql://mysql.tcin.cn:3306/wind-bg?serverTimezone=Asia/Shanghai&amp;useSSL=false</url> -->
-		<url>jdbc:mysql://mysql.tcin.cn:3306/hljy_bg?serverTimezone=Asia/Shanghai&amp;useSSL=false</url>
+		<url>jdbc:mysql://127.0.0.1:3306/wind-bg?serverTimezone=Asia/Shanghai&amp;useSSL=false</url>
 		<!-- 数据库名称（不填，则为自动获取） -->
 		<!-- <dataBase>test</dataBase> -->
 		<!-- 数据库用户名 -->
-		<userName>admin</userName>
+		<userName>root</userName>
 		<!-- 数据库密码 -->
-		<passWord>52285170s</passWord>
+		<passWord>123456</passWord>
 		<!-- 连接池最大保持连接数（为空或小于等于0，则为1个） -->
 		<max>3</max>
 		<!-- 初始化：连接数（最多初始化max数，为空或小于等于0，则为1个） -->

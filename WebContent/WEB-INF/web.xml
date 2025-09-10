@@ -9,11 +9,11 @@
     </welcome-file-list>
   	<error-page>
 		<error-code>404</error-code>
-		<location>/view/global/404.jsp</location>
+		<location>/WEB-INF/view/global/404.jsp</location>
 	</error-page>
 	<error-page>
     	<error-code>500</error-code>
-    	<location>/view/global/500.jsp</location>
+    	<location>/WEB-INF/view/global/500.jsp</location>
  	</error-page>
  	
  	<!-- 静态资源访问 -->
